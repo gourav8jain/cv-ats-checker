@@ -2,6 +2,8 @@
 
 A beautiful and modern web application that analyzes your CV for ATS (Applicant Tracking System) compatibility using Google's Gemini 2.5 AI. Get instant scoring and actionable recommendations to improve your CV's ATS performance.
 
+**🚀 Live Demo**: [https://gourav8jain.github.io/cv-ats-checker](https://gourav8jain.github.io/cv-ats-checker)
+
 ## Features
 
 - 📄 **Multi-format Support**: Upload CVs in PDF or Word format
