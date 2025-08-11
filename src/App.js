@@ -228,14 +228,39 @@ function App() {
       return;
     }
 
+    // Check if API key is available
+    const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
+    if (!apiKey) {
+      const userApiKey = prompt(
+        'Gemini API key not found. Please enter your API key to continue:\n\n' +
+        'Get your API key from: https://makersuite.google.com/app/apikey\n\n' +
+        'Note: This key is only stored in your browser for this session.'
+      );
+      
+      if (!userApiKey || !userApiKey.trim()) {
+        alert('API key is required to analyze your CV. Please try again.');
+        return;
+      }
+      
+      // Store in sessionStorage for this session
+      sessionStorage.setItem('gemini_api_key', userApiKey.trim());
+    }
+
     setIsAnalyzing(true);
     setAtsScore(null);
     setRecommendations([]);
     setProblems([]);
 
     try {
+      // Get API key from environment or session storage
+      const finalApiKey = apiKey || sessionStorage.getItem('gemini_api_key');
+      
+      if (!finalApiKey) {
+        throw new Error('No API key available');
+      }
+
       // Initialize Gemini AI
-      const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API_KEY);
+      const genAI = new GoogleGenerativeAI(finalApiKey);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       const prompt = `
@@ -286,7 +311,14 @@ function App() {
       }
     } catch (error) {
       console.error('Error analyzing CV:', error);
-      alert('Error analyzing CV. Please check your API key and try again.');
+      
+      if (error.message.includes('API key')) {
+        alert('Invalid or missing API key. Please check your Gemini API key and try again.');
+      } else if (error.message.includes('quota')) {
+        alert('API quota exceeded. Please check your Gemini API usage limits.');
+      } else {
+        alert(`Error analyzing CV: ${error.message}. Please try again.`);
+      }
     } finally {
       setIsAnalyzing(false);
     }
@@ -419,6 +451,20 @@ function App() {
               </>
             )}
           </button>
+          
+          {/* API Key Status */}
+          {!process.env.REACT_APP_GEMINI_API_KEY && (
+            <div className="mt-4 p-3 bg-blue-500/20 border border-blue-500/30 rounded-lg">
+              <div className="flex items-center gap-2 text-blue-400 mb-1">
+                <AlertCircle className="w-4 h-4" />
+                <span className="text-sm font-medium">API Key Required</span>
+              </div>
+              <p className="text-blue-300 text-xs">
+                When you click "Analyze ATS Score", you'll be prompted to enter your Gemini API key. 
+                Get it from <a href="https://makersuite.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="underline">Google AI Studio</a>.
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Results */}
