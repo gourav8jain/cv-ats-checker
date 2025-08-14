@@ -151,4 +151,4 @@ This project is open source and available under the MIT License.
 
 **Copyright © 2024 @gourav8jain - GitHub**
 
-**Note**: This application is for educational and personal use. Always review AI-generated recommendations and use your judgment when applying them to your CV. 
+**Note**: This application is for educational and personal use. Always review AI-generated recommendations and use your judgment when applying them to your CV. # Trigger new deployment
