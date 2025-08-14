@@ -39,8 +39,8 @@
 3. **Set up GitHub Secrets** (for automatic deployment):
    - Go to repository "Settings" > "Secrets and variables" > "Actions"
    - Click "New repository secret"
-   - Name: `REACT_APP_GEMINI_API_KEY`
-   - Value: Your Gemini API key
+   - Name: `REACT_APP_AI_API_KEY`
+   - Value: Your AI API key
    - Click "Add secret"
 
 ### Option B: Manual Deployment

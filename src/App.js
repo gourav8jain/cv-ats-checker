@@ -229,10 +229,10 @@ function App() {
     }
 
     // Check if API key is available
-    const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
+    const apiKey = process.env.REACT_APP_AI_API_KEY;
     if (!apiKey) {
       const userApiKey = prompt(
-        'Gemini API key not found. Please enter your API key to continue:\n\n' +
+        'AI API key not found. Please enter your API key to continue:\n\n' +
         'Get your API key from: https://makersuite.google.com/app/apikey\n\n' +
         'Note: This key is only stored in your browser for this session.'
       );
@@ -313,9 +313,9 @@ function App() {
       console.error('Error analyzing CV:', error);
       
       if (error.message.includes('API key')) {
-        alert('Invalid or missing API key. Please check your Gemini API key and try again.');
+        alert('Invalid or missing API key. Please check your AI API key and try again.');
       } else if (error.message.includes('quota')) {
-        alert('API quota exceeded. Please check your Gemini API usage limits.');
+        alert('API quota exceeded. Please check your AI API usage limits.');
       } else {
         alert(`Error analyzing CV: ${error.message}. Please try again.`);
       }
@@ -453,7 +453,7 @@ function App() {
           </button>
           
           {/* API Key Status */}
-          {!process.env.REACT_APP_GEMINI_API_KEY && (
+          {!process.env.REACT_APP_AI_API_KEY && (
             <div className="mt-4 p-3 bg-blue-500/20 border border-blue-500/30 rounded-lg">
               <div className="flex items-center gap-2 text-blue-400 mb-1">
                 <AlertCircle className="w-4 h-4" />
