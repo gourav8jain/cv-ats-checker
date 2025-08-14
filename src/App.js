@@ -231,19 +231,8 @@ function App() {
     // Check if API key is available
     const apiKey = process.env.REACT_APP_AI_API_KEY;
     if (!apiKey) {
-      const userApiKey = prompt(
-        'AI API key not found. Please enter your API key to continue:\n\n' +
-        'Get your API key from: https://makersuite.google.com/app/apikey\n\n' +
-        'Note: This key is only stored in your browser for this session.'
-      );
-      
-      if (!userApiKey || !userApiKey.trim()) {
-        alert('API key is required to analyze your CV. Please try again.');
-        return;
-      }
-      
-      // Store in sessionStorage for this session
-      sessionStorage.setItem('gemini_api_key', userApiKey.trim());
+      alert('AI API key not configured. Please check your environment setup.');
+      return;
     }
 
     setIsAnalyzing(true);
@@ -252,15 +241,8 @@ function App() {
     setProblems([]);
 
     try {
-      // Get API key from environment or session storage
-      const finalApiKey = apiKey || sessionStorage.getItem('gemini_api_key');
-      
-      if (!finalApiKey) {
-        throw new Error('No API key available');
-      }
-
-      // Initialize Gemini AI
-      const genAI = new GoogleGenerativeAI(finalApiKey);
+      // Initialize AI
+      const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       const prompt = `
@@ -452,19 +434,6 @@ function App() {
             )}
           </button>
           
-          {/* API Key Status */}
-          {!process.env.REACT_APP_AI_API_KEY && (
-            <div className="mt-4 p-3 bg-blue-500/20 border border-blue-500/30 rounded-lg">
-              <div className="flex items-center gap-2 text-blue-400 mb-1">
-                <AlertCircle className="w-4 h-4" />
-                <span className="text-sm font-medium">API Key Required</span>
-              </div>
-              <p className="text-blue-300 text-xs">
-                When you click "Analyze ATS Score", you'll be prompted to enter your Gemini API key. 
-                Get it from <a href="https://makersuite.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="underline">Google AI Studio</a>.
-              </p>
-            </div>
-          )}
         </div>
 
         {/* Results */}

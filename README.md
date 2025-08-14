@@ -50,6 +50,27 @@ A beautiful and modern web application that analyzes your CV for ATS (Applicant 
 
    The application will open at `http://localhost:3000`
 
+## 🚀 Deployment
+
+### **GitHub Pages (Recommended)**
+The application is configured for automatic deployment to GitHub Pages:
+
+1. **Fork/Clone** this repository
+2. **Set GitHub Secret**:
+   - Go to repository "Settings" > "Secrets and variables" > "Actions"
+   - Create secret: `REACT_APP_AI_API_KEY`
+   - Value: Your AI API key
+3. **Push to main branch** - automatic deployment will start
+4. **Access your app** at: `https://yourusername.github.io/cv-ats-checker`
+
+### **Local Development**
+For local development, create a `.env` file with your API key.
+
+### **Production Build**
+```bash
+npm run build
+```
+
 ## 📱 Usage
 
 1. **Enter Job Details**
@@ -62,7 +83,7 @@ A beautiful and modern web application that analyzes your CV for ATS (Applicant 
 
 3. **Get Analysis**
    - Click "Analyze ATS Score"
-   - Wait for the AI to process your CV
+   - The AI will process your CV automatically
    - Review your ATS score and recommendations
 
 4. **Review Results**
